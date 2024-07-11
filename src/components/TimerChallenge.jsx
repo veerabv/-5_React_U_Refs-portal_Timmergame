@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import ResultModal from "./ResultModal";
 // let timer;
 const TimerChallenge = ({ title, targetTime }) => {
   const [timeExpired, setTimeExpired] = useState(false);
@@ -15,23 +16,27 @@ const TimerChallenge = ({ title, targetTime }) => {
     clearTimeout(timer.current);
   }
   return (
-    <section className="challenge">
-      <h2>{title}</h2>
-      <p className="challenge-time">
-        {targetTime} second{targetTime > 1 ? "s" : ""}
-      </p>
-      {timeExpired && <p>You lost!!</p>}
-      <p>
-        <button onClick={timerStarted ? handleStop : handleStart}>
-          {timerStarted ? "Stop" : "Start"} challenge
-        </button>
-      </p>
-      <p>
-        <button>
-          {timerStarted ? "Timer is Running ..." : "Timer Inactive"}{" "}
-        </button>
-      </p>
-    </section>
+    <>
+      {timeExpired && <ResultModal result="Lost" targetTime={targetTime} />}
+
+      <section className="challenge">
+        <h2>{title}</h2>
+        <p className="challenge-time">
+          {targetTime} second{targetTime > 1 ? "s" : ""}
+        </p>
+        {timeExpired && <p>You lost!!</p>}
+        <p>
+          <button onClick={timerStarted ? handleStop : handleStart}>
+            {timerStarted ? "Stop" : "Start"} challenge
+          </button>
+        </p>
+        <p>
+          <button>
+            {timerStarted ? "Timer is Running ..." : "Timer Inactive"}{" "}
+          </button>
+        </p>
+      </section>
+    </>
   );
 };
 
