@@ -9,11 +9,15 @@ const TimerChallenge = ({ title, targetTime }) => {
   const isTimmerActive = timeRemainig > 0 && timeRemainig < targetTime * 1000;
 
   if (timeRemainig <= 0) {
-    clearInterval(timer.current)
-    setTimeRemaining(targetTime * 1000);
-    modal.current.open();
+    clearInterval(timer.current);
 
+    modal.current.open();
   }
+
+  function handleReset() {
+    setTimeRemaining(targetTime * 1000);
+  }
+
   function handleStart() {
     // setTimerStarted(true);
     timer.current = setInterval(() => {
@@ -23,12 +27,16 @@ const TimerChallenge = ({ title, targetTime }) => {
   function handleStop() {
     clearInterval(timer.current);
     modal.current.open();
-    
   }
   return (
     <>
       {/* {timeExpired && <ResultModal  result="Lost" targetTime={targetTime} />} */}
-      <ResultModal ref={modal} result="Lost" targetTime={targetTime} />
+      <ResultModal
+        ref={modal}
+        targetTime={targetTime}
+        timeRemainig={timeRemainig}
+        handleReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
