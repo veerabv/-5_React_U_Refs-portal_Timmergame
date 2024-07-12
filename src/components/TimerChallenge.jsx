@@ -11,7 +11,7 @@ const TimerChallenge = ({ title, targetTime }) => {
     setTimerStarted(true);
     timer.current = setTimeout(() => {
       setTimeExpired(true);
-      modal.current.showModal(); // this is built in method for to open dialog
+      modal.current.open();  // this open is from the useImperative hook from ResultModal.jsx
     }, targetTime * 1000);
   }
   function handleStop() {
