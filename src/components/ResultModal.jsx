@@ -12,11 +12,14 @@ const ResultModal = forwardRef(function ResultModal({ timeRemainig, targetTime,h
 
   const isLost = timeRemainig <= 0;
   const formatedTimeRemaining = (timeRemainig / 1000).toFixed(2);
+  const score = Math.round((1-(timeRemainig/(targetTime*1000)))*100);
+
   return (
     <dialog ref={dialog} className="result-modal">
       {/* <dialog className="result-model" open>  */}
       {/* the open attribute opens the model but there will be no dim background*/}
       {isLost && <h2>You Lost</h2>}
+      {!isLost && <h2>Your Score : {score}</h2>}
       
       <p>
         The target time was <strong>{targetTime} seconds</strong>.
