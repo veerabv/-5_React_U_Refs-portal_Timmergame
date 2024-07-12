@@ -6,10 +6,12 @@ const TimerChallenge = ({ title, targetTime }) => {
   const [timerStarted, setTimerStarted] = useState(false);
   //   let timer;
   const timer = useRef();
+  const modal = useRef();
   function handleStart() {
     setTimerStarted(true);
     timer.current = setTimeout(() => {
       setTimeExpired(true);
+      modal.current.showModal(); // this is built in method for to open dialog
     }, targetTime * 1000);
   }
   function handleStop() {
@@ -17,14 +19,14 @@ const TimerChallenge = ({ title, targetTime }) => {
   }
   return (
     <>
-      {timeExpired && <ResultModal result="Lost" targetTime={targetTime} />}
-
+      {/* {timeExpired && <ResultModal  result="Lost" targetTime={targetTime} />} */}
+      <ResultModal ref={modal} result="Lost" targetTime={targetTime} />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
-        {timeExpired && <p>You lost!!</p>}
+     
         <p>
           <button onClick={timerStarted ? handleStop : handleStart}>
             {timerStarted ? "Stop" : "Start"} challenge

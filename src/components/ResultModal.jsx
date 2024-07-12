@@ -1,8 +1,8 @@
-import React from "react";
+import React , {forwardRef} from "react";
 
-const ResultModal = ({ result, targetTime }) => {
+const ResultModal = forwardRef(function ResultModal({ result, targetTime },ref)  {
   return (
-    <dialog className="result-model" open>
+    <dialog ref={ref} className="result-modal">
       {/* <dialog className="result-model" open>  */}{" "}
       {/* the open attribute opens the model but there will be no dim background*/}
       <h2>You {result}</h2>
@@ -10,13 +10,13 @@ const ResultModal = ({ result, targetTime }) => {
         The target time was <strong>{targetTime} seconds</strong>.
       </p>
       <p>
-        You stopped the timer <strong>X seconds ago</strong>
+        You stopped the timer with <strong>X seconds left</strong>
       </p>
       <form method="dialog">
         <button>Close</button>
       </form>
     </dialog>
   );
-};
+});
 
 export default ResultModal;
