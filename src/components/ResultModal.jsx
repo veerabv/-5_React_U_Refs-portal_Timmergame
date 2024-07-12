@@ -1,4 +1,5 @@
 import React , {forwardRef, useImperativeHandle, useRef} from "react";
+import { createPortal } from "react-dom";
 
 const ResultModal = forwardRef(function ResultModal({ timeRemainig, targetTime,handleReset },ref)  {
   const dialog = useRef();
@@ -14,7 +15,7 @@ const ResultModal = forwardRef(function ResultModal({ timeRemainig, targetTime,h
   const formatedTimeRemaining = (timeRemainig / 1000).toFixed(2);
   const score = Math.round((1-(timeRemainig/(targetTime*1000)))*100);
 
-  return (
+  return  createPortal((
     <dialog ref={dialog} className="result-modal">
       {/* <dialog className="result-model" open>  */}
       {/* the open attribute opens the model but there will be no dim background*/}
@@ -31,7 +32,7 @@ const ResultModal = forwardRef(function ResultModal({ timeRemainig, targetTime,h
         <button>Close</button>
       </form>
     </dialog>
-  );
+  ),document.getElementById('modal'));
 });
 
 export default ResultModal;
